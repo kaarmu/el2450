@@ -1,90 +1,74 @@
 
-// u_l = left = v - omega/2
-// u_r = right = v + omega/2
+switch(112) {
+	case 15: // Task 5
+	    theta_R = atan2(yg-y0, xg-x0) * 180/PI;
 
-Serial.print("State\n");
-Serial.print(state, DEC);
-
-switch(state) {
-	case 11:
-	    theta_R=atan2((yg-y0),(xg-x0))*(180/PI);
-	    left = -(0.5)*K_psi*(theta_R-theta);
-	    right = (0.5)*K_psi*(theta_R-theta);
-	break;
-	case 12:
-	    left = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)));
-	    right = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)));
-	break;
-	case 13:
-	    theta_R = atan2((yg-y0),(xg-x0))*(180/PI);
-	    left = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)))-(0.5)*K_psi*(theta_R-theta);
-	    right = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)))+(0.5)*K_psi*(theta_R-theta);
+        v = 0;
+        omega = K_Psi * (theta_R - theta);
 	break;
 
-	case 14:
-		theta_g = atan2((yg-y0),(xg-x0))*(180/PI);
+	case 17: // Task 7
+        d0 = (x0 - x) * cos(theta * PI/180)
+           + (y0 - y) * sin(theta * PI/180);
+
+        v = K_omega * d0;
+        omega = 0;
+
+		v = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)));
+	break;
+
+    case 18: // Task 8
+	    theta_R = atan2(yg-y0, xg-x0) * 180/PI;
+
+        d0 = (x0 - x) * cos(theta * PI/180)
+           + (y0 - y) * sin(theta * PI/180);
+
+        v = K_omega * d0;
+        omega = K_Psi * (theta_R - theta);
+	break;
+
+	case 110: // Task 10
+		theta_g = atan2(yg-y0, xg-x0); // in radians
 
 		// Calculations from Task 10
-		dg = cos(theta_g) * (xg - x) + sin(theta_g) * (yg - y);
+		dg = cos(theta_g) * (xg - x)
+           + sin(theta_g) * (yg - y);
+
 		v = K_omega * dg;
-		
-		// Control inputs
-		left = v;
-		right = v;
+        omega = 0;
 	break;
 
-	case 15:
-		Serial.print("\n\n theta ");
-		Serial.print(theta, DEC);
-
-		theta_g = atan2((yg-y0),(xg-x0))*(180/PI);
+	case 112: // Task 12
+		theta_g = atan2(yg-y0, xg-x0);
 
 		// Calculations from Task 12
-		dp = sin(theta_g) * (x + p*cos(theta) - x0)
-		   - cos(theta_g) * (y + p*sin(theta) - y0);
-		omega = K_psi * dp;
+		dp = sin(theta_g) * (x + p*cos(theta * PI/180) - x0)
+		   - cos(theta_g) * (y + p*sin(theta * PI/180) - y0);
 
-		// dp = -(0.25 * theta)
-
-		// Control inputs
-		left = -omega/2;
-		right = omega/2;
-
-		Serial.print("\n theta_g");
-		Serial.print(theta_g, DEC);
-		Serial.print("\n omega ");
-		Serial.print(omega, DEC);
-		Serial.print("\n left ");
-		Serial.print(left, DEC);
-		Serial.print("\n right ");
-		Serial.print(right, DEC);
-
-
+        v = 0;
+		omega = K_Psi * dp;
 	break;
 
-	case 16:
-		theta_g = atan2((yg-y0),(xg-x0))*(180/PI);
+	case 113:
+		theta_g = atan2(yg-y0, xg-x0);
 
 		// Calculations from Task 10
-		dg = cos(theta_g) * (xg - x) + sin(theta_g) * (yg - y);
-		v = K_omega * dg;
+		dg = cos(theta_g) * (xg - x)
+           + sin(theta_g) * (yg - y);
 
 		// Calculations from Task 12
-		dp = sin(theta_g) * (x + p*cos(theta) - x0)
-		   - cos(theta_g) * (y + p*sin(theta) - y0);
-		omega = K_psi * dp;
+		dp = sin(theta_g) * (x + p*cos(theta * PI/180) - x0)
+		   - cos(theta_g) * (y + p*sin(theta * PI/180) - y0);
 
-		// Control inputs
-		left = v - omega/2;
-		right =  v + omega/2;
-
+		v = K_omega * dg;
+		omega = K_Psi * dp;
 	break;
 
 	case ROTATION:
 
 		// theta in deg
 		// thetaR in deg
-		
+
 		theta_R = atan2((yg-y0),(xg-x0))*(180/PI); // deg
 
 		Serial.print(std::abs(theta - theta_R), DEC);
@@ -93,10 +77,9 @@ switch(state) {
 			state = TRANSLATION;
 			break;
 		}
-		
-	    left = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)))-(0.5)*K_psi*(theta_R-theta);
-	    right = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)))+(0.5)*K_psi*(theta_R-theta);
 
+	    left = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)))-(0.5)*K_Psi*(theta_R-theta);
+	    right = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)))+(0.5)*K_Psi*(theta_R-theta);
 	break;
 	case TRANSLATION:
 
@@ -104,7 +87,6 @@ switch(state) {
 			state = ROTATION;
 			break;
 		}
-
 
 		theta_g = atan2((yg-y0),(xg-x0))*(180/PI);
 
@@ -115,13 +97,27 @@ switch(state) {
 		// Calculations from Task 12
 		dp = sin(theta_g*(PI/180)) * (x + p*cos(theta*(PI/180)) - x0)
 		   - cos(theta_g*(PI/180)) * (y + p*sin(theta*(PI/180)) - y0);
-		omega = K_psi * dp;
+		omega = K_Psi * dp;
 
 		// Control inputs
 		left = v - omega/2;
 		right =  v + omega/2;
 	break;
+
 	default:
 	break;
 }
 
+Serial.print("\n v     ");
+Serial.print(v, 10);
+Serial.print("\n omega ");
+Serial.print(omega, 10);
+Serial.print("\n x     ");
+Serial.print(x, 10);
+Serial.print("\n y     ");
+Serial.print(y, 10);
+Serial.print("\n theta ");
+Serial.print(theta, 10);
+
+left  = v - omega/2;
+right = v + omega/2;
