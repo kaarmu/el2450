@@ -42,8 +42,8 @@ switch(112) {
 		theta_g = atan2(yg-y0, xg-x0);
 
 		// Calculations from Task 12
-		dp = sin(theta_g) * (x + p*cos(theta * PI/180) - x0)
-		   - cos(theta_g) * (y + p*sin(theta * PI/180) - y0);
+		dp = sin(theta_g) * (x + 100*p*cos(theta * PI/180) - x0)
+		   - cos(theta_g) * (y + 100*p*sin(theta * PI/180) - y0);
 
         v = 0;
 		omega = K_Psi * dp;
@@ -57,8 +57,8 @@ switch(112) {
            + sin(theta_g) * (yg - y);
 
 		// Calculations from Task 12
-		dp = sin(theta_g) * (x + p*cos(theta * PI/180) - x0)
-		   - cos(theta_g) * (y + p*sin(theta * PI/180) - y0);
+		dp = sin(theta_g) * (x + 100*p*cos(theta * PI/180) - x0)
+		   - cos(theta_g) * (y + 100*p*sin(theta * PI/180) - y0);
 
 		v = K_omega * dg;
 		omega = K_Psi * dp;
@@ -118,6 +118,16 @@ Serial.print("\n y     ");
 Serial.print(y, 10);
 Serial.print("\n theta ");
 Serial.print(theta, 10);
+
+Serial.print("\n x0 ");
+Serial.print(x0, 10);
+Serial.print("\n y0 ");
+Serial.print(y0, 10);
+
+Serial.print("\n xg ");
+Serial.print(xg, 10);
+Serial.print("\n yg ");
+Serial.print(yg, 10);
 
 left  = v - omega/2;
 right = v + omega/2;
