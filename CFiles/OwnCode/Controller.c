@@ -1,5 +1,5 @@
 
-switch(112) {
+switch(113) {
 	case 15: // Task 5
 	    theta_R = atan2(yg-y0, xg-x0) * 180/PI;
 
@@ -13,8 +13,6 @@ switch(112) {
 
         v = K_omega * d0;
         omega = 0;
-
-		v = K_omega*((x0-x)*cos(theta*(PI/180))+(y0-y)*sin(theta*(PI/180)));
 	break;
 
     case 18: // Task 8
@@ -28,13 +26,13 @@ switch(112) {
 	break;
 
 	case 110: // Task 10
-		theta_g = atan2(yg-y0, xg-x0); // in radians
+		theta_g = atan2(yg-y0, xg-x0);
 
 		// Calculations from Task 10
-		dg = cos(theta_g) * (xg - x)/100
-           + sin(theta_g) * (yg - y)/100; // [dg] = cm/100 = m
+		dg = cos(theta_g) * (xg - x)
+           + sin(theta_g) * (yg - y);
 
-		v = K_omega * dg; // [v] = 1/m * m = OK!
+		v = K_omega * dg / 100;
         omega = 0;
 	break;
 
@@ -42,11 +40,11 @@ switch(112) {
 		theta_g = atan2(yg-y0, xg-x0);
 
 		// Calculations from Task 12
-		dp = sin(theta_g) * (x/100 + p*cos(theta * PI/180) - x0/100)
-		   - cos(theta_g) * (y/100 + p*sin(theta * PI/180) - y0/100); // [dp] = ( m + ([p]=m) + m )
-		   													  		  //      = m
+		dp = sin(theta_g) * (x + 100*p*cos(theta * PI/180) - x0)
+		   - cos(theta_g) * (y + 100*p*sin(theta * PI/180) - y0); 
+
         v = 0;
-		omega = K_Psi * dp; // [omega] = 1/m * m = OK!
+		omega = K_Psi * dp; // [omega] = 1/cm * cm
 	break;
 
 	case 113:
@@ -58,10 +56,11 @@ switch(112) {
 
 		// Calculations from Task 12
 		dp = sin(theta_g) * (x + 100*p*cos(theta * PI/180) - x0)
-		   - cos(theta_g) * (y + 100*p*sin(theta * PI/180) - y0);
+		   - cos(theta_g) * (y + 100*p*sin(theta * PI/180) - y0); 
 
-		v = K_omega * dg;
-		omega = K_Psi * dp;
+		v = K_omega * dg / 100;
+		omega = K_Psi * dp; // [omega] = 1/cm * cm
+
 	break;
 
 	case ROTATION:
