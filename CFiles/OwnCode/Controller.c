@@ -42,12 +42,11 @@ switch(112) {
 		theta_g = atan2(yg-y0, xg-x0);
 
 		// Calculations from Task 12
-		dp = sin(theta_g) * (x + p*cos(theta * PI/180) - x0)
-		   - cos(theta_g) * (y + p*sin(theta * PI/180) - y0); // [dp] = ( cm + ([p]=cm) + cm )
-		   													  //      = cm
-
+		dp = sin(theta_g) * (x/100 + p*cos(theta * PI/180) - x0/100)
+		   - cos(theta_g) * (y/100 + p*sin(theta * PI/180) - y0/100); // [dp] = ( m + ([p]=m) + m )
+		   													  		  //      = m
         v = 0;
-		omega = K_Psi * dp; // [omega] = 1/cm * cm = OK!
+		omega = K_Psi * dp; // [omega] = 1/m * m = OK!
 	break;
 
 	case 113:
@@ -109,6 +108,11 @@ switch(112) {
 	break;
 }
 							// assumed dim
+Serial.print("\n K_omega ");
+Serial.print(K_omega, 10);
+Serial.print("\n K_Psi   ");
+Serial.print(K_Psi);
+
 Serial.print("\n v     ");
 Serial.print(v, 10);
 Serial.print("\n omega ");
