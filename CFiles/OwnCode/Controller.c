@@ -32,9 +32,9 @@ switch(112) {
 
 		// Calculations from Task 10
 		dg = cos(theta_g) * (xg - x)/100
-           + sin(theta_g) * (yg - y)/100;
+           + sin(theta_g) * (yg - y)/100; // [dg] = cm/100 = m
 
-		v = K_omega * dg;
+		v = K_omega * dg; // [v] = 1/m * m = OK!
         omega = 0;
 	break;
 
@@ -43,10 +43,11 @@ switch(112) {
 
 		// Calculations from Task 12
 		dp = sin(theta_g) * (x + p*cos(theta * PI/180) - x0)/100
-		   - cos(theta_g) * (y + p*sin(theta * PI/180) - y0)/100;
+		   - cos(theta_g) * (y + p*sin(theta * PI/180) - y0)/100; // [dp] = ( cm + ([p]=cm) + cm )/100
+		   														  //      = m
 
         v = 0;
-		omega = K_Psi * dp;
+		omega = K_Psi * dp; // [omega] = 1/cm * m = NOT OK!
 	break;
 
 	case 113:
@@ -107,26 +108,26 @@ switch(112) {
 	default:
 	break;
 }
-
+							// assumed dim
 Serial.print("\n v     ");
 Serial.print(v, 10);
 Serial.print("\n omega ");
 Serial.print(omega, 10);
-Serial.print("\n x     ");
+Serial.print("\n x     ");	// cm
 Serial.print(x, 10);
-Serial.print("\n y     ");
+Serial.print("\n y     ");	// cm
 Serial.print(y, 10);
-Serial.print("\n theta ");
+Serial.print("\n theta "); 	// rad
 Serial.print(theta, 10);
 
-Serial.print("\n x0 ");
+Serial.print("\n x0 ");		// cm
 Serial.print(x0, 10);
-Serial.print("\n y0 ");
+Serial.print("\n y0 ");	 	// cm
 Serial.print(y0, 10);
 
-Serial.print("\n xg ");
+Serial.print("\n xg "); 	// cm
 Serial.print(xg, 10);
-Serial.print("\n yg ");
+Serial.print("\n yg "); 	// cm
 Serial.print(yg, 10);
 
 left  = v - omega/2;
