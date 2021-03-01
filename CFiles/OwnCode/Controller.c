@@ -1,5 +1,5 @@
 
-switch(112) {
+switch(110) {
 	case 15: // Task 5
 	    theta_R = atan2(yg-y0, xg-x0) * 180/PI;
 
@@ -31,8 +31,8 @@ switch(112) {
 		theta_g = atan2(yg-y0, xg-x0); // in radians
 
 		// Calculations from Task 10
-		dg = cos(theta_g) * (xg - x)
-           + sin(theta_g) * (yg - y);
+		dg = cos(theta_g) * (xg - x)/100
+           + sin(theta_g) * (yg - y)/100;
 
 		v = K_omega * dg;
         omega = 0;

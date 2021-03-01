@@ -1,6 +1,6 @@
-x       0.1
-y       0.1
-theta   15
+x       0
+y       0
+theta   0
 x0      0
 y0      0
 xg      1
