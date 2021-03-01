@@ -42,11 +42,11 @@ switch(112) {
 		theta_g = atan2(yg-y0, xg-x0);
 
 		// Calculations from Task 12
-		dp = sin(theta_g) * (x + 100*p*cos(theta * PI/180) - x0)
-		   - cos(theta_g) * (y + 100*p*sin(theta * PI/180) - y0);
+		dp = sin(theta_g) * (x/100 + p*cos(theta * PI/180) - x0/100)
+		   - cos(theta_g) * (y/100 + p*sin(theta * PI/180) - y0/100);
 
         v = 0;
-		omega = K_Psi * dp / 100; // maybe out put must be in meters?
+		omega = K_Psi * dp;
 	break;
 
 	case 113:
